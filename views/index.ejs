@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-800 flex justify-center items-center min-h-screen">
+
+    <div class="bg-gray-900 p-8 rounded-lg shadow-lg w-full sm:w-96">
+        <h2 class="text-3xl font-bold text-center text-white mb-6">Sign Up</h2>
+
+        <form action="/signup" method="POST">
+            <!-- Name Field -->
+            <div class="mb-4">
+                <label for="name" class="block text-gray-300 text-sm">Full Name</label>
+                <input type="text" id="name" name="name"
+                    class="w-full p-3 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    required>
+            </div>
+
+            <!-- Username Field -->
+            <div class="mb-4">
+                <label for="username" class="block text-gray-300 text-sm">Username</label>
+                <input type="text" id="username" name="username"
+                    class="w-full p-3 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    required>
+            </div>
+
+            <!-- Age Field -->
+            <div class="mb-4">
+                <label for="age" class="block text-gray-300 text-sm">Age</label>
+                <input type="number" id="age" name="age"
+                    class="w-full p-3 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    required>
+            </div>
+
+            <!-- Email Field -->
+            <div class="mb-4">
+                <label for="email" class="block text-gray-300 text-sm">Email</label>
+                <input type="email" id="email" name="email"
+                    class="w-full p-3 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    required>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-6">
+                <label for="password" class="block text-gray-300 text-sm">Password</label>
+                <input type="password" id="password" name="password"
+                    class="w-full p-3 mt-2 bg-gray-800 text-white border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    required>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+                class="w-full py-3 bg-indigo-600 text-white font-semibold rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300 ease-in-out mb-4">
+                Sign Up
+            </button>
+        </form>
+
+        <p class="text-center text-gray-300 text-sm">Already have an account? <a href="/login"
+                class="text-indigo-400 hover:text-indigo-500">Login here</a></p>
+    </div>
+
+</body>
+
+</html>
