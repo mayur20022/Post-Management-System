@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS CDN -->
+</head>
+
+<body class="bg-gray-800 flex items-center justify-center min-h-screen">
+
+    <div class="bg-gray-900 p-8 rounded-xl shadow-xl max-w-md w-full">
+        <h3 class="text-2xl font-semibold text-white mb-6 text-center">Upload Your Image</h3>
+
+        <!-- Image Upload Form -->
+        <form action="/upload-image" method="POST" enctype="multipart/form-data" class="space-y-4">
+            <!-- File Input -->
+            <input type="file" name="image" accept="image/*" required
+                class="block w-full text-sm text-gray-500 file:border-none file:bg-gray-700 file:text-white file:px-4 file:py-2 file:rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+            <!-- Submit Button -->
+            <div class="flex justify-center">
+                <button type="submit"
+                    class="bg-blue-600 text-white px-8 py-3 rounded-lg shadow-md transform transition hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    Upload Image
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

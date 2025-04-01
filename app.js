@@ -2,20 +2,20 @@ const cookieParser = require('cookie-parser')
 const express = require('express')
 const app = express()
 
-const path = require('path')
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
+const path = require('path')
 
 const User = require("./model/user")
 const Post = require("./model/post")
-const { assert } = require('console')
-const { arrayBuffer } = require('stream/consumers')
+const multerConfig = require('./config/multerConfig')
+
 
 app.set("view engine", "ejs")
+app.use(express.static(path.join(__dirname,"public") ))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
-
 
 
 
@@ -25,8 +25,18 @@ app.get('/', (req, res) => {
     res.render('index')
 })
 
-app.get('/sign')
-app.post('/signup', async (req, res) => {
+app.get('/upload-image', (req, res) => {
+    res.render('test')
+})
+app.post('/upload-image', authMiddleware, multerConfig.single("image"), async (req, res) => {
+    const user = await User.findOne({email :req.user.email})
+    user.image = req.file.filename
+    await user.save()
+    
+    res.redirect("/profile")
+})
+
+app.post('/signup',  async (req, res) => {
     const { name, email, password, age, username } = req.body
 
     bcrypt.genSalt(10, (err, salt) => {
@@ -36,7 +46,7 @@ app.post('/signup', async (req, res) => {
             })
             const token = jwt.sign({ email: email, user: userdata._id }, "chup")
             res.cookie("token", token)
-            res.redirect('/')
+            res.redirect('/profile')
         })
 
     })
@@ -80,16 +90,14 @@ app.get('/logout', (req, res) => {
 })
 
 
-app.post("/send-post", authMiddleware, async (req, res) => {
+app.post("/send-post", authMiddleware,async (req, res) => {
     const { postContent } = req.body
     const { email, user: userId } = req.user
-
 
     let post = await Post.create({
         content: postContent,
         users: userId
     })
-    console.log(post);
     let user = await User.findOne({ email })
     user.posts.push(post._id)
     await user.save()
@@ -106,7 +114,6 @@ app.get('/like/:id', authMiddleware, async (req, res) => {
         post.likes.splice(post.likes.indexOf(req.user.user), 1)
     }
     await post.save()
-    console.log(post);
 
     res.redirect("/profile")
 
@@ -117,12 +124,10 @@ app.get("/edit/:id", authMiddleware, async (req, res) => {
     const { id } = req.params.id
     const post = await Post.findOne({ id }).populate("users")
     res.render("edit", { post })
-    console.log(post);
 })
 
 app.post("/edit/:id", authMiddleware, async (req, res) => {
     const { postContent: content  } = req.body
-    console.log(content);
     const { id } = req.params.id
     const post = await Post.findOne({ id }).populate("users")
     post.content = content

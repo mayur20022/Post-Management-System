@@ -9,6 +9,10 @@ const UserSchema =  mongoose.Schema({
     },
     name: String,
     age: Number,
+    image: {
+        type: String,
+        default: "default.png"
+    },
     email: {
         type: String,
         unique: true
